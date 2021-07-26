@@ -1,15 +1,17 @@
 *.iml
 .gradle
 /local.properties
-/.idea/caches
-/.idea/libraries
-/.idea/modules.xml
-/.idea/workspace.xml
-/.idea/navEditor.xml
-/.idea/assetWizardSettings.xml
+# IntelliJ IDEA
+*.iws
+/out/
+
+# User-specific configurations
+.idea
+.idea/gradle.xml
 .DS_Store
 /build
+/build.gradle
 /captures
 .externalNativeBuild
 .cxx
-local.properties
+/buildSrc/build/
