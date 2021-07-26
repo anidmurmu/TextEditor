@@ -79,26 +79,27 @@ protobuf {
 
 dependencies {
 
-    implementation Deps.kotlin
-    implementation Deps.coroutineCore
-    implementation Deps.coroutineAndroid
-    implementation Deps.coreKtx
-    implementation Deps.appcompat
-    implementation Deps.material
-    implementation Deps.constraintLayout
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:${Versions.kotlin}"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutine}"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.coroutine}"
+    implementation "androidx.core:core-ktx:${Versions.coreKtx}"
+    implementation "androidx.appcompat:appcompat:${Versions.appcompat}"
+    implementation "com.google.android.material:material:${Versions.material}"
+    implementation "androidx.constraintlayout:constraintlayout:${Versions.constraintLayout}"
     // Hilt
-    implementation Deps.hiltAndroid
-    implementation Deps.hiltCompiler
+    implementation "com.google.dagger:hilt-android:${Versions.hilt}"
+    kapt "com.google.dagger:hilt-compiler:${Versions.hilt}"
+    //implementation "com.google.dagger:hilt-android-compiler:${Versions.hilt}"
     // Navigation
-    implementation Deps.navFragmentKtx
-    implementation Deps.navUiKtx
+    implementation "androidx.navigation:navigation-fragment-ktx:${Versions.nav}"
+    implementation "androidx.navigation:navigation-ui-ktx:${Versions.nav}"
 
     // testImplementation
-    testImplementation Deps.jUnit
+    testImplementation "junit:junit:${Versions.jUnit}"
 
     // androidTestImplementation
-    androidTestImplementation Deps.junit
-    androidTestImplementation Deps.espressoCore
+    androidTestImplementation "androidx.test.ext:junit:${Versions.junit}"
+    androidTestImplementation "androidx.test.espresso:espresso-core:${Versions.espressoCore}"
 }
 java {
     sourceCompatibility = JavaVersion.VERSION_1_8
