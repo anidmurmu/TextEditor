@@ -31,6 +31,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:lines="5"
+                android:text="@={viewModel.viewState.words}"
                 />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -39,6 +40,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             tools:text="5 Words"
+            android:text="@{viewModel.viewState.wordCount}"
             android:layout_marginTop="24dp"
             android:layout_marginLeft="12dp"
             android:layout_marginRight="12dp"
@@ -51,6 +53,7 @@
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:text="@string/undo"
+            android:onClick="@{() -> viewModel.onViewClick(@id/btn_undo, @id/btn_undo)}"
             android:layout_marginTop="24dp"
             android:layout_marginLeft="12dp"
             android:layout_marginRight="12dp"
