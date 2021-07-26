@@ -6,7 +6,7 @@
     app:startDestination="@id/editorFragment">
     <fragment
         android:id="@+id/editorFragment"
-        android:name="com.ather.texteditor.presentation.EditorFragment"
+        android:name="com.ather.texteditor.presentation.editor.EditorFragment"
         android:label="UpdateFragment" />
 
 </navigation>

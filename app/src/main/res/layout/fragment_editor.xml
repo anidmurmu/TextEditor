@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <!--<variable
+        <variable
             name="viewModel"
-            type="com.ather.dashboard.tron.presentation.fragments.update.UpdateViewModel" />
-    --></data>
+            type="com.ather.texteditor.presentation.editor.EditorViewModel" />
+    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -17,8 +17,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tilEditor"
             android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:lines="5"
+            android:layout_height="150dp"
             android:padding="4dp"
             android:hint="@string/enter_words"
             android:layout_marginTop="24dp"
@@ -30,7 +29,9 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/tietEditor"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent"
+                android:lines="5"
+                />
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
