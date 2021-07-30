@@ -1,6 +1,7 @@
 package com.ather.texteditor.presentation.editor
 
 import android.app.Application
+import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -21,6 +22,17 @@ class EditorViewModel @Inject constructor(application: Application) : BaseViewMo
 
     init {
         _viewState.value = EditorViewState()
+    }
+
+    fun updateWordCount(count: Int) {
+        val displayText = "Word Count : $count"
+        _viewState.value?.wordCount?.postValue(displayText)
+    }
+
+    fun getWordCount(str: String): Int {
+        val words = str.trim().split("\\s+".toRegex())
+        Log.d("apple word size", words.size.toString())
+        return words.size
     }
 
     override fun onViewClick(id: Int, data: Any) {

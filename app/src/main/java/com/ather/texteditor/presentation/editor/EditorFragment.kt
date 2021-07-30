@@ -10,8 +10,12 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.ather.texteditor.R
+import com.ather.texteditor.base.KeyPadListener
+import com.ather.texteditor.base.setKeypadListener
 import com.ather.texteditor.databinding.FragmentEditorBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.fragment_editor.*
+
 
 @AndroidEntryPoint
 class EditorFragment : Fragment() {
@@ -24,7 +28,7 @@ class EditorFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = DataBindingUtil.inflate<FragmentEditorBinding>(
+        binding = DataBindingUtil.inflate(
             inflater,
             R.layout.fragment_editor,
             container,
@@ -32,12 +36,15 @@ class EditorFragment : Fragment() {
         )
         binding.lifecycleOwner = this
         binding.viewModel = model
+
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         model.viewState.value?.words?.observe(requireActivity(), {
             Log.d("apple", it)
+            val wordCount = model.getWordCount(it)
+            model.updateWordCount(wordCount)
         })
 
         model.viewEvent.undoEvent.observe(requireActivity(), { event ->
@@ -47,6 +54,17 @@ class EditorFragment : Fragment() {
                 }
             }
         })
+
+        clRootView.setKeypadListener(object : KeyPadListener {
+            override fun onKeypadShown() {
+                etEditor.requestFocus()
+            }
+
+            override fun onKeypadHidden() {
+                etEditor.clearFocus()
+            }
+        })
+
     }
 
 
