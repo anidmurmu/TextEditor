@@ -18,7 +18,7 @@ class EditorViewModel @Inject constructor(application: Application) : BaseViewMo
     private val _viewState = MutableLiveData<EditorViewState>()
     val viewState: LiveData<EditorViewState> = _viewState
 
-    val viewEvent = EditorEvent()
+    private val _viewEvent = EditorEvent()
 
     init {
         _viewState.value = EditorViewState()
@@ -35,10 +35,53 @@ class EditorViewModel @Inject constructor(application: Application) : BaseViewMo
         return words.size
     }
 
+    fun getCurrentWord(): String {
+        return _viewState.value?.words?.value ?: ""
+    }
+
+    fun saveWordCountToStack(wordCountPair: Pair<String, Int>) {
+        _viewState.value?.wordStack?.add(wordCountPair)
+    }
+
+    fun enableUndo() {
+        _viewState.value?.isUndoBtnOn = true
+    }
+
+    fun disableUndo() {
+        _viewState.value?.isUndoBtnOn = false
+    }
+
+    private fun isUndoEnabled(): Boolean {
+        return _viewState.value?.isUndoBtnOn ?: false
+    }
+
+    private fun getPreviousWordCountPair(): Pair<String, Int> {
+        if(_viewState.value?.wordStack?.isNotEmpty() == true) {
+            _viewState.value?.wordStack?.pop()
+        }
+        return if(_viewState.value?.wordStack?.isNotEmpty() == true) {
+            _viewState.value?.wordStack?.pop() ?: Pair("", 0)
+        } else {
+            Pair("", 0)
+        }
+    }
+
+    private fun updateEditText(word: String) {
+        _viewState.value?.words?.postValue(word)
+    }
+
     override fun onViewClick(id: Int, data: Any) {
         when(id) {
             R.id.btn_undo -> {
-                viewEvent.undoEvent.postValue(Event(true))
+                if(isUndoEnabled()) {
+                    val wordCountPair = getPreviousWordCountPair()
+                    val word = wordCountPair.first
+                    val wordCont = wordCountPair.second
+                    updateEditText(word)
+                    updateWordCount(wordCont)
+
+                }
+                _viewEvent.undoEvent.postValue(Event(true))
             }
         }
     }

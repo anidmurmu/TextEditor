@@ -7,4 +7,5 @@ class EditorViewState {
     val words: MutableLiveData<String> = MutableLiveData("")
     val wordCount: MutableLiveData<String> = MutableLiveData("Word Count : 0")
     val wordStack: Stack<Pair<String, Int>> = Stack()
+    var isUndoBtnOn: Boolean = false
 }

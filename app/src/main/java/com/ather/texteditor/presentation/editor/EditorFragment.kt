@@ -1,11 +1,9 @@
 package com.ather.texteditor.presentation.editor
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -41,30 +39,22 @@ class EditorFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        model.viewState.value?.words?.observe(requireActivity(), {
-            Log.d("apple", it)
-            val wordCount = model.getWordCount(it)
-            model.updateWordCount(wordCount)
-        })
-
-        model.viewEvent.undoEvent.observe(requireActivity(), { event ->
-            event?.getContentIfNotHandledOrReturnNull()?.let {
-                if (it) {
-                    Toast.makeText(requireContext(), "this is toast", Toast.LENGTH_SHORT).show()
-                }
-            }
-        })
-
         clRootView.setKeypadListener(object : KeyPadListener {
             override fun onKeypadShown() {
                 etEditor.requestFocus()
+                model.disableUndo()
             }
 
             override fun onKeypadHidden() {
                 etEditor.clearFocus()
+                model.enableUndo()
+                val currentWord = model.getCurrentWord()
+                val wordCount = model.getWordCount(currentWord)
+                model.updateWordCount(wordCount)
+                val wordCountPair = Pair(currentWord, wordCount)
+                model.saveWordCountToStack(wordCountPair)
             }
         })
-
     }
 
 
